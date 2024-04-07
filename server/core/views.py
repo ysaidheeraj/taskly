@@ -7,18 +7,24 @@ from .tokens import create_jwt_pair
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework import status
+from rest_framework.decorators import permission_classes
 
+def create_model_response(model, serialized_data):
+    response_data = {
+        model.__name__: serialized_data
+    }
+    return response_data
 class UsersView(APIView):
     def post(self, request):
         userSerializer = UserSerializer(data=request.data)
         userSerializer.is_valid(raise_exception=True)
         userSerializer.save()
-        return Response(userSerializer.data)
+        return Response(create_model_response(User, userSerializer.data))
     
-    permission_classes = [IsAuthenticated]
+    @permission_classes([IsAuthenticated])
     def get(self, request):
         user = request.user
-        return Response(UserSerializer(user).data)
+        return Response(create_model_response(User, UserSerializer(user).data))
 
 class UserLoginView(APIView):
     def post(self, request):
@@ -51,7 +57,7 @@ class TasksView(APIView):
         taskSerializer =  TaskSerializer(data = data)
         taskSerializer.is_valid(raise_exception=True)
         taskSerializer.save()
-        return Response(taskSerializer.data)
+        return Response(create_model_response(Task, taskSerializer.data))
     
     def get(self,request, taskId=None):
         user = request.user
@@ -63,7 +69,7 @@ class TasksView(APIView):
         else:
             tasks = Task.objects.filter(user=user.id).all()
         taskSerializer =  TaskSerializer(tasks, many=many)
-        return Response(taskSerializer.data)
+        return Response(create_model_response(Task, taskSerializer.data))
     
     def put(self, request, taskId):
         task = Task.objects.filter(id=taskId, user=request.user.id).first()
@@ -73,7 +79,7 @@ class TasksView(APIView):
         taskSerializer = TaskSerializer(task, data=request.data, partial=True)
         taskSerializer.is_valid(raise_exception=True)
         taskSerializer.save()
-        return Response(taskSerializer.data)
+        return Response(create_model_response(Task, taskSerializer.data))
     
     def delete(self, request, taskId):
         task = Task.objects.filter(id=taskId, user=request.user.id).first()
