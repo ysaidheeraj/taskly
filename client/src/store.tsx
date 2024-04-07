@@ -4,17 +4,20 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { userLoginReducer, userDetailsReducer } from "./reducers/UserReducer";
 import { UserState } from "./reducers/UserReducer";
 import { userRegisterReducer } from "./reducers/UserReducer";
+import { userUpdateReducer } from "./reducers/UserReducer";
 
 const rootReducer = combineReducers({
     userLogin: userLoginReducer,
     userDetails: userDetailsReducer,
-    userRegister: userRegisterReducer
+    userRegister: userRegisterReducer,
+    userUpdate: userUpdateReducer
 });
 
 export interface RootState {
     userLogin: UserState;
     userDetails: UserState; 
     userRegister: UserState;
+    userUpdate: UserState;
 }
 
 const middleware = applyMiddleware(thunk);

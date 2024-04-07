@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../store";
+import { update } from "../apis/UserUpdate";
 
 export const ProfilePage = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ export const ProfilePage = () => {
     const [firstName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("")
     const [lastName, setLastName] = useState("");
+    const dispatch = useDispatch();
 
     const userDetailsVal = useSelector((state: RootState) => state.userDetails);
     const { error: detailsError, loading: detailsLoading, user: userObj } = userDetailsVal;
@@ -25,7 +27,22 @@ export const ProfilePage = () => {
         }
     }, [userObj])
     const handleUpdate = () =>{
-        
+        if(password && password.length){
+            dispatch(update({
+                'first_name': firstName,
+                'last_name': lastName,
+                'email': email,
+                'middle_name': middleName,
+                'password': password
+            }))
+        }else{
+            dispatch(update({
+                'first_name': firstName,
+                'last_name': lastName,
+                'email': email,
+                'middle_name': middleName
+            }))
+        }
     }
   return (
     <>
