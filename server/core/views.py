@@ -25,6 +25,14 @@ class UsersView(APIView):
     def get(self, request):
         user = request.user
         return Response(create_model_response(User, UserSerializer(user).data))
+    
+    @permission_classes([IsAuthenticated])
+    def put(self, request):
+        user = request.user
+        userSerializer  = UserSerializer(user, data=request.data, partial=True)
+        userSerializer.is_valid(raise_exception=True)
+        userSerializer.save()
+        return Response(create_model_response(User, userSerializer.data))
 
 class UserLoginView(APIView):
     def post(self, request):
