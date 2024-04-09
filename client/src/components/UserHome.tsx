@@ -14,9 +14,9 @@ export const UserHome = () => {
     const [searchText, setSearchText] = useState("");
 
     const tasksListObj = useSelector((state: RootState) => state.tasksList);
-    const { loading, tasks} = tasksListObj;
+    const {error, loading, tasks} = tasksListObj;
     useEffect(() =>{
-        if (!tasks && !loading) {
+        if (!tasks && !loading && !error) {
             dispatch(tasksList());
         }
     }, [tasks, loading])
