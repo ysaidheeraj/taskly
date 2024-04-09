@@ -1,5 +1,6 @@
 import { TASK_LIST_REQUEST, TASK_LIST_SUCCESS, TASK_LIST_FAIL, TASK_LIST_RESET } from "../constants/TaskConstants";
 import { TASK_CREATE_FAIL, TASK_CREATE_REQUEST, TASK_CREATE_SUCCESS, TASK_CREATE_RESET } from "../constants/TaskConstants";
+import { TASK_DETAILS_REQUEST, TASK_DETAILS_SUCCESS, TASK_DETAILS_FAIL, TASK_DETAILS_RESET } from "../constants/TaskConstants";
 import { Task } from "../models/Task";
 
 interface DefaultState{
@@ -45,6 +46,21 @@ export const taskCreateReducer = (state: TaskState = taskInitialState, action: a
             return {...state, loading: false, task: undefined, error: action.payload}
         case TASK_CREATE_RESET:
             return {...taskInitialState, task: undefined, error: undefined}
+        default:
+            return state;
+    }
+}
+
+export const taskDetailsReducer = (state: TaskState = taskInitialState, action: any): TaskState => {
+    switch(action.type){
+        case TASK_DETAILS_REQUEST:
+            return {...state, loading:true, task: undefined, error: undefined};
+        case TASK_DETAILS_SUCCESS:
+            return {...state, loading: false, task: action.payload, error: undefined};
+        case TASK_DETAILS_FAIL:
+            return {...state, loading: false, task: undefined, error: action.payload};
+        case TASK_DETAILS_RESET:
+            return {...taskInitialState, task: undefined, error: undefined};
         default:
             return state;
     }

@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userLoginReducer, userDetailsReducer } from "./reducers/UserReducer";
-import { tasksReducer, taskCreateReducer } from "./reducers/TaskReducer";
+import { tasksReducer, taskCreateReducer, taskDetailsReducer } from "./reducers/TaskReducer";
 import { TasksState, TaskState } from "./reducers/TaskReducer";
 import { UserState } from "./reducers/UserReducer";
 import { userRegisterReducer } from "./reducers/UserReducer";
@@ -19,7 +19,8 @@ const rootReducer = combineReducers({
     userRegister: userRegisterReducer,
     userUpdate: userUpdateReducer,
     tasksList: tasksReducer,
-    taskCreate: taskCreateReducer
+    taskCreate: taskCreateReducer,
+    taskDetails: taskDetailsReducer
 });
 
 export interface RootState {
@@ -29,6 +30,7 @@ export interface RootState {
     userUpdate: UserState;
     tasksList: TasksState;
     taskCreate: TaskState;
+    taskDetails: TaskState;
 }
 
 const middleware = applyMiddleware(thunk);

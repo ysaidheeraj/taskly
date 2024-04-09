@@ -5,6 +5,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { CreateTask } from "./pages/CreateTask";
+import { EditTask } from "./pages/EditTask";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register" Component={RegisterPage}/>
           <Route path="/profile" Component={ProfilePage}/>
           <Route path="/createtask" Component={CreateTask}/>
+          <Route path="/edittask/:taskId" Component={EditTask}/>
         </Routes>
       </div>
     </>
