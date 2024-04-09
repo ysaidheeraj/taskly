@@ -11,16 +11,16 @@ function App() {
   return (
     <>
       <Header />
-        <main className="py-3"></main>
-        <div className="container">
-          <Routes>
-            <Route path="/" Component={AppHome}/>
-            <Route path="/login" Component={LoginPage}/>
-            <Route path="/register" Component={RegisterPage}/>
-            <Route path="/profile" Component={ProfilePage}/>
-            <Route path="/createtask" Component={CreateTask}/>
-          </Routes>
-        </div>
+      <main className="py-3"></main>
+      <div className="container">
+        <Routes>
+          <Route path="/" Component={AppHome}/>
+          <Route path="/login" Component={LoginPage}/>
+          <Route path="/register" Component={RegisterPage}/>
+          <Route path="/profile" Component={ProfilePage}/>
+          <Route path="/createtask" Component={CreateTask}/>
+        </Routes>
+      </div>
     </>
   )
 }
