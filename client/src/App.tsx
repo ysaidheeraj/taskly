@@ -4,6 +4,7 @@ import { AppHome } from "./pages/AppHome";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { ProfilePage } from "./pages/ProfilePage";
+import { CreateTask } from "./pages/CreateTask";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="/login" Component={LoginPage}/>
             <Route path="/register" Component={RegisterPage}/>
             <Route path="/profile" Component={ProfilePage}/>
+            <Route path="/createtask" Component={CreateTask}/>
           </Routes>
         </div>
     </>

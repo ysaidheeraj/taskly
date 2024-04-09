@@ -7,14 +7,7 @@ interface UpdateResponse {
   User: User;
 }
 
-interface UserUpdateObject {
-    first_name: string;
-    last_name: string;
-    email: string;
-    password: string;
-}
-
-export const update = (userObj: UserUpdateObject) => async (dispatch: Dispatch) => {
+export const update = (userObj: User) => async (dispatch: Dispatch) => {
   try {
     dispatch({
       type: USER_UPDATE_REQUEST

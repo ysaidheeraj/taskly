@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { RootState } from "../store";
 import { userDetails } from "../apis/UserDetails";
 import { logout } from "../apis/UserLogout";
+import { AppDispatch } from "../store";
 export const Header = () => {
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
 
     const userDetailsVal = useSelector((state: RootState) => state.userDetails);
     const { error, loading, user } = userDetailsVal;

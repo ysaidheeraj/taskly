@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { register } from "../apis/UserRegister";
+import { AppDispatch } from "../store";
 import { USER_REGISTER_RESET } from "../constants/UserConstants";
 
 export const RegisterPage = () => {
@@ -12,7 +13,7 @@ export const RegisterPage = () => {
     const [firstName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("")
     const [lastName, setLastName] = useState("");
-    const dispatch  = useDispatch();
+    const dispatch: AppDispatch  = useDispatch();
     const handleRegister = () =>{
         dispatch(register({
             'first_name': firstName,
@@ -23,10 +24,10 @@ export const RegisterPage = () => {
     }
     
     const userDetailsVal = useSelector((state: RootState) => state.userDetails);
-    const { error: detailsError, loading: detailsLoading, user: userObj } = userDetailsVal;
+    const { user: userObj } = userDetailsVal;
 
     const userRegister = useSelector((state: RootState) => state.userRegister)
-    const {error, loading, user} = userRegister;
+    const { loading, user} = userRegister;
 
     useEffect(() => {
         if(userObj){
@@ -41,7 +42,8 @@ export const RegisterPage = () => {
     }, [userObj, user, loading])
     return (
         <>
-            <h2>Register</h2>
+            <div className="container border rounded p-4 w-50 h-100">
+                <h2>Register</h2>
                 <form>
                     <div className="mb-3">
                         <label htmlFor="firstName" className="form-label">First Name*</label>
@@ -67,8 +69,9 @@ export const RegisterPage = () => {
                         <label htmlFor="exampleInputPassword1" className="form-label">Password*</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={handleRegister}>Submit</button>
+                    <button type="submit" className="btn btn-dark w-100" onClick={handleRegister}>Register</button>
                 </form>
+            </div>
         </>
     )
 }
