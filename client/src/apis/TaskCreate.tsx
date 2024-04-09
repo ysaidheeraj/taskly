@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { TASK_CREATE_REQUEST, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL } from "../constants/TaskConstants";
 import { Task } from "../models/Task";
+import Notification from "../components/Notification";
 
 interface TaskCreateResponse {
   Task: Task;
@@ -26,6 +27,7 @@ export const createTaskRequest = (taskObj: Task) => async (dispatch: Dispatch) =
       type: TASK_CREATE_SUCCESS,
       payload: data.Task
     });
+    Notification.success("Task created successfully!");
 
   } catch (error) {
     dispatch({

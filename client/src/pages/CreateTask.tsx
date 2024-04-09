@@ -28,7 +28,7 @@ export const CreateTask = () => {
             dispatch({
                 type: TASK_CREATE_RESET
             });
-            dispatch(tasksList());
+            // dispatch(tasksList());
             navigate('../');
         }
     }, [error, task, loading])

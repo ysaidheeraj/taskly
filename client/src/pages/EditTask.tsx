@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../store";
 import { useEffect, useState } from "react";
 import { getTaskDetails } from "../apis/TaskDetails";
 import { updateTaskRequest } from "../apis/TaskUpdate";
+import { deleteTaskRequest } from "../apis/TaskDelete";
+import { tasksList } from "../apis/TaskList";
 
 export const EditTask = () => {
     const { taskId } = useParams<{ taskId: string }>();
@@ -11,6 +13,7 @@ export const EditTask = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState('0');
+    const navigate = useNavigate();
 
     const taskDetails = useSelector((state: RootState) => state.taskDetails);
     const {error, loading, task} = taskDetails;
@@ -37,7 +40,11 @@ export const EditTask = () => {
         }
     }
     const handleDeleteTask = () =>{
-        console.log("Delete");
+        if(window.confirm('Are you sure you want to delete this task?')){
+            dispatch(deleteTaskRequest(task?.id?.toString()));
+            // dispatch(tasksList());
+            navigate('../');
+        }
     }
   return (
     <>

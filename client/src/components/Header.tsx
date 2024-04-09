@@ -21,7 +21,7 @@ export const Header = () => {
         dispatch(logout());
     }
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container">
                 <Link className="navbar-brand mx-auto" to="/">
                     Taskly
