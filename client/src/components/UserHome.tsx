@@ -25,7 +25,7 @@ export const UserHome = () => {
     <div>
         {tasks ? (
             <div className="container">
-                <div className="row mb-3">
+                <div className="row mb-3 border border-dark rounded p-4">
                     <div className="col-md-3">
                         <div className="input-group">
                             <label className="input-group-text" htmlFor="statusFilter">Status</label>
@@ -50,7 +50,7 @@ export const UserHome = () => {
                         </button>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row border border-dark rounded p-4">
                     <div className="col-md-6">
                         <table className="table table-hover">
                             <thead>
@@ -67,7 +67,7 @@ export const UserHome = () => {
                         </table>
                     </div>
                     <div className="col-md-6">
-                    <div className="card" style={{'border': 'none'}}>
+                    <div className="card border-0">
                         <div className="card-body">
                         <h5 className="card-title">Tasks Statistics</h5>
                             <BarGraph tasks={tasks} />
