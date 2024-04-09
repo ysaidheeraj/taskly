@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { TASK_DELETE_REQUEST, TASK_DELETE_SUCCESS, TASK_DELETE_FAIL } from "../constants/TaskConstants";
+import Notification from "../components/Notification";
 
 
 export const deleteTaskRequest = (taskId: string | undefined) => async (dispatch: Dispatch) => {
@@ -21,6 +22,8 @@ export const deleteTaskRequest = (taskId: string | undefined) => async (dispatch
     dispatch({
       type: TASK_DELETE_SUCCESS,
     });
+
+    Notification.success("Task deleted successfully!");
 
   } catch (error) {
     dispatch({

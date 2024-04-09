@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAIL, USER_DETAILS_SUCCESS } from "../constants/UserConstants";
 import { User } from "../models/User";
+import Notification from "../components/Notification";
 
 interface UpdateResponse {
   User: User;
@@ -29,6 +30,8 @@ export const update = (userObj: User) => async (dispatch: Dispatch) => {
         type: USER_DETAILS_SUCCESS,
         payload: data.User
       });
+
+    Notification.success("Profile updated successfully!");
 
   } catch (error) {
     dispatch({

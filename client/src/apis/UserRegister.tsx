@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL } from "../constants/UserConstants";
 import { User } from "../models/User";
+import Notification from "../components/Notification";
 
 interface RegisterResponse {
   User: User;
@@ -26,6 +27,8 @@ export const register = (userObj: UserRegisterObject) => async (dispatch: Dispat
       type: USER_REGISTER_SUCCESS,
       payload: data.User
     });
+
+    Notification.success("Registered successfully! Please login to continue");
 
   } catch (error) {
     dispatch({
