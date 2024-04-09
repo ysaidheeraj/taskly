@@ -1,8 +1,8 @@
 import { AppDispatch } from "../store"
 import { RootState } from "../store"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { tasksList } from "../apis/TaskList"
+import { useEffect, useState } from "react"
+import { TaskListQuery, tasksList } from "../apis/TaskList"
 import { TaskItem } from "./TaskItem"
 import { Task } from "../models/Task"
 import { useNavigate } from "react-router-dom"
@@ -10,6 +10,8 @@ import BarGraph from "./BarGraph"
 export const UserHome = () => {
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
+    const [status, setStatus] = useState("all");
+    const [searchText, setSearchText] = useState("");
 
     const tasksListObj = useSelector((state: RootState) => state.tasksList);
     const { loading, tasks} = tasksListObj;
@@ -18,9 +20,25 @@ export const UserHome = () => {
             dispatch(tasksList());
         }
     }, [tasks, loading])
+
     const handleCreateTask = () => {
         navigate('../createtask');
     }
+
+    const handleSearch = () => {
+        let queryObject: TaskListQuery = {};
+        if(status != "all"){
+            queryObject.status = Number(status);
+        }
+        if(searchText.length){
+            queryObject.searchText = searchText;
+        }
+        dispatch(tasksList(queryObject));
+    }
+    
+    useEffect(() =>{
+        handleSearch();
+    }, [status])
   return (
     <div>
         {tasks ? (
@@ -29,7 +47,7 @@ export const UserHome = () => {
                     <div className="col-md-3">
                         <div className="input-group">
                             <label className="input-group-text" htmlFor="statusFilter">Status</label>
-                            <select className="form-select" id="statusFilter">
+                            <select className="form-select" id="statusFilter" value={status} onChange={(e) => setStatus(e.target.value)}>
                                 <option value="all">All</option>
                                 <option value={0}>Todo</option>
                                 <option value={1}>In Progress</option>
@@ -39,8 +57,8 @@ export const UserHome = () => {
                     </div>
                     <div className="col-md-3">
                         <div className="input-group">
-                            <input type="text" className="form-control" placeholder="Search Tasks" />
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                            <input type="text" className="form-control" placeholder="Search Tasks" value={searchText} onChange={(e) => setSearchText(e.target.value)}/>
+                            <button className="btn btn-outline-secondary" type="button" id="search-button" onClick={handleSearch}>Search</button>
                         </div>
                     </div>
                     <div className="col-md-6 d-flex justify-content-end">
@@ -60,9 +78,14 @@ export const UserHome = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tasks.map((task: Task) =>(
-                                    <TaskItem key={task.id} task={task}/>
-                                ))}
+                                {tasks.length ?
+                                    tasks.map((task: Task) =>(
+                                        <TaskItem key={task.id} task={task}/>
+                                    ))
+                                    :
+                                    <tr><td colSpan={2}><h3>You have no tasks here</h3></td></tr>
+                                }
+                                
                             </tbody>
                         </table>
                     </div>

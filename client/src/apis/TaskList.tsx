@@ -7,7 +7,29 @@ interface DetailsResponse {
   Task: Task[];
 }
 
-export const tasksList = () => async (dispatch: Dispatch) => {
+export interface TaskListQuery{
+  status?: Number;
+  searchText?: string;
+}
+
+const buildQueryString = (params: TaskListQuery): string => {
+  const queryParams: string[] = [];
+
+  // Add status query parameter if provided
+  if (params.status !== undefined) {
+    queryParams.push(`status=${params.status}`);
+  }
+
+  // Add searchText query parameter if provided
+  if (params.searchText) {
+    queryParams.push(`searchText=${encodeURIComponent(params.searchText)}`);
+  }
+
+  // Join the query parameters with '&' and return the resulting query string
+  return queryParams.join('&');
+};
+
+export const tasksList = (query?: TaskListQuery) => async (dispatch: Dispatch) => {
   try {
     dispatch({
       type: TASK_LIST_REQUEST
@@ -18,7 +40,15 @@ export const tasksList = () => async (dispatch: Dispatch) => {
             'Authorization': 'Bearer '+access_token
         }
     }
-    const { data } = await axios.get<DetailsResponse>("/api/tasks", config);
+    let api:string ="/api/tasks";
+    if(query){
+      const paramString = buildQueryString(query);
+      if(paramString.length){
+        api += "?"+paramString;
+      }
+    }
+    
+    const { data } = await axios.get<DetailsResponse>(api, config);
 
     dispatch({
       type: TASK_LIST_SUCCESS,

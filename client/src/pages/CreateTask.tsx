@@ -4,6 +4,7 @@ import { createTaskRequest } from "../apis/TaskCreate";
 import { AppDispatch, RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { TASK_CREATE_RESET } from "../constants/TaskConstants";
+import { tasksList } from "../apis/TaskList";
 export const CreateTask = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -27,6 +28,7 @@ export const CreateTask = () => {
             dispatch({
                 type: TASK_CREATE_RESET
             });
+            dispatch(tasksList());
             navigate('../');
         }
     }, [error, task, loading])

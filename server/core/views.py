@@ -75,7 +75,13 @@ class TasksView(APIView):
             tasks = Task.objects.filter(id=taskId, user=user.id).first()
             many = False
         else:
-            tasks = Task.objects.filter(user=user.id).all()
+            queryObj = {}
+            queryObj['user'] = user.id
+            if request.query_params.get('status') != None:
+                queryObj['status'] = request.query_params.get('status')
+            if request.query_params.get('searchText') != None:
+                queryObj['name__icontains'] = request.query_params.get('searchText')
+            tasks = Task.objects.filter(**queryObj).all()
         taskSerializer =  TaskSerializer(tasks, many=many)
         return Response(create_model_response(Task, taskSerializer.data))
     
