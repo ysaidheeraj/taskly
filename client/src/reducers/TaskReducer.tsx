@@ -83,11 +83,11 @@ export const taskUpdateReducer = (state: TaskState = taskInitialState, action: a
 
 export const taskDeleteReducer = (state: TaskState = taskInitialState, action: any): TaskState => {
     switch(action.type){
-        case TASK_UPDATE_REQUEST:
+        case TASK_DELETE_REQUEST:
             return {...state, loading: true, error: undefined};
-        case TASK_UPDATE_SUCCESS:
+        case TASK_DELETE_SUCCESS:
             return {...state, loading: false, error: undefined};
-        case TASK_UPDATE_FAIL:
+        case TASK_DELETE_FAIL:
             return {...state, loading: false, error: action.payload};
         default:
             return state;
