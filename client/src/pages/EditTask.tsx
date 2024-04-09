@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../store";
 import { useEffect, useState } from "react";
 import { getTaskDetails } from "../apis/TaskDetails";
+import { updateTaskRequest } from "../apis/TaskUpdate";
 
 export const EditTask = () => {
     const { taskId } = useParams<{ taskId: string }>();
@@ -27,7 +28,13 @@ export const EditTask = () => {
     }, [task, loading, error])
 
     const handleUpdateTask = () => {
-        console.log("Update");
+        if(task){
+            dispatch(updateTaskRequest({
+                name: name,
+                description: description,
+                status: Number(status)
+            }, task.id?.toString()));
+        }
     }
     const handleDeleteTask = () =>{
         console.log("Delete");
