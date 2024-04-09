@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { getTaskDetails } from "../apis/TaskDetails";
 import { updateTaskRequest } from "../apis/TaskUpdate";
 import { deleteTaskRequest } from "../apis/TaskDelete";
-import { tasksList } from "../apis/TaskList";
 
 export const EditTask = () => {
     const { taskId } = useParams<{ taskId: string }>();

@@ -1,5 +1,5 @@
 import { Header } from "./components/Header"
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import { AppHome } from "./pages/AppHome";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
